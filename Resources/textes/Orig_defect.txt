@@ -1,9 +1,0 @@
-iObjParam = KAPI.ksRectangleParam(iKompasObject.GetParamStruct(LDefin2D.ko_RectangleParam))
-iObjParam.Init()
-iObjParam.x = 0.0
-iObjParam.y = 0.0
-iObjParam.ang = 0.0
-iObjParam.height = 0.0
-iObjParam.width = 0.0
-iObjParam.style = 7
-iDocument2D.ksRectangle(iObjParam)
