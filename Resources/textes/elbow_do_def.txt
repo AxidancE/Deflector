@@ -1,0 +1,41 @@
+iADimParam = KAPI.ksADimParam(iKompasObject.GetParamStruct(LDefin2D.ko_ADimParam))
+
+iDimDrawingParam = KAPI.ksDimDrawingParam(iADimParam.GetDPar())
+iDimDrawingParam.Init()
+iDimDrawingParam.ang = 0.0
+iDimDrawingParam.lenght = 0.0
+iDimDrawingParam.pl1 = False
+iDimDrawingParam.pl2 = False
+iDimDrawingParam.pt1 = 1
+iDimDrawingParam.pt2 = 1
+iDimDrawingParam.shelfDir = 0
+iDimDrawingParam.textBase = 0
+iDimDrawingParam.textPos = 0
+
+iADimSourceParam = KAPI.ksADimSourceParam(iADimParam.GetSPar())
+iADimSourceParam.Init()
+iADimSourceParam.xc = 0.0
+iADimSourceParam.yc = 0.0
+iADimSourceParam.x1 = 70.0
+iADimSourceParam.y1 = 0.0
+iADimSourceParam.x2 = 0.0
+iADimSourceParam.y2 = 70.0
+iADimSourceParam.ang1 = 0.0
+iADimSourceParam.ang2 = 90.0
+iADimSourceParam.dir = 1
+iADimSourceParam.rad = 105.0
+
+iDimTextParam = KAPI.ksDimTextParam(iADimParam.GetTPar())
+iDimTextParam.Init(0)
+iDimTextParam.bitFlag = 0
+iDimTextParam.sign = 0
+iDimTextParam.stringFlag = False
+iDimTextParam.style = 3
+
+iCharArray = KAPI.ksDynamicArray(iDimTextParam.GetTextArr())
+iChar255 = KAPI.ksChar255(iKompasObject.GetParamStruct(LDefin2D.ko_Char255))
+iChar255.Init()
+iChar255.str = "400 "
+iCharArray.ksAddArrayItem(-1, iChar255)
+
+iDocument2D.ksAngDimension(iADimParam)

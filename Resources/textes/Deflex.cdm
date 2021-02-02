@@ -1,0 +1,40 @@
+# -*- coding: cp1251 -*-
+#|Deflex
+
+import Kompas6API5 as KAPI
+from win32com.client import Dispatch
+import LDefin2D
+import LDefin3D
+
+iKompasObject = Dispatch('KOMPAS.Application.5')
+iKompasObject = KAPI.KompasObject(iKompasObject)
+
+iDocument2D = iKompasObject.ActiveDocument2D()
+
+
+
+
+#éöó
+
+#Orig_defect
+
+#Elbow
+
+#slice
+
+#prodol
+
+#okruj
+
+#do_def
+
+#elbow_do_def
+
+#dl_def_elb
+
+#defecto
+
+#secdefecto
+
+#Sliced_pipe
+

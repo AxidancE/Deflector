@@ -1,0 +1,374 @@
+iDocument2D.ksCircle(0.0, 0.0, 36.0, 1)
+
+iDocument2D.ksLineSeg(0.0, 0.0, 0.0, 10.0, 4)
+
+iCentreParam = KAPI.ksCentreParam(iKompasObject.GetParamStruct(LDefin2D.ko_CentreParam))
+iCentreParam.Init()
+iCentreParam.angle = 180.0
+iCentreParam.lenXmTail = 40.0
+iCentreParam.lenXpTail = 40.0
+iCentreParam.lenYmTail = 40.0
+iCentreParam.lenYpTail = 40.0
+iCentreParam.standXmTail = True
+iCentreParam.standXpTail = True
+iCentreParam.standYmTail = True
+iCentreParam.standYpTail = True
+iCentreParam.type = 2
+iCentreParam.x = 0.0
+iCentreParam.y = 0.0
+
+iDocument2D.ksCentreMarker(iCentreParam)
+
+
+
+iParagraphParam = KAPI.ksParagraphParam(iKompasObject.GetParamStruct(LDefin2D.ko_ParagraphParam))
+iParagraphParam.Init()
+iParagraphParam.x = 40
+iParagraphParam.y = 4
+iParagraphParam.ang = 0.0
+iParagraphParam.height = 7.13581323623
+iParagraphParam.width = 10.15437507629
+iParagraphParam.hFormat = 0
+iParagraphParam.vFormat = 0
+iParagraphParam.style = 1
+
+iDocument2D.ksParagraph(iParagraphParam)
+
+iTextLineParam = KAPI.ksTextLineParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextLineParam))
+iTextLineParam.Init()
+iTextLineParam.style = 1
+
+iTextItemArray = KAPI.ksDynamicArray(iKompasObject.GetDynamicArray(4))
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = "90"
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 4096
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 176
+iTextItemParam.s = ""
+iTextItemParam.type = 23
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 8215
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "Gost Type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = ""
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 0
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = ""
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 0
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextLineParam.SetTextItemArr(iTextItemArray)
+iDocument2D.ksTextLine(iTextLineParam)
+
+iDocument2D.ksEndObj()
+
+iParagraphParam = KAPI.ksParagraphParam(iKompasObject.GetParamStruct(LDefin2D.ko_ParagraphParam))
+iParagraphParam.Init()
+iParagraphParam.x = -6
+iParagraphParam.y = 40
+iParagraphParam.ang = 0.0
+iParagraphParam.height = 7.13581323623
+iParagraphParam.width = 6.97937536239
+iParagraphParam.hFormat = 0
+iParagraphParam.vFormat = 0
+iParagraphParam.style = 1
+
+iDocument2D.ksParagraph(iParagraphParam)
+
+iTextLineParam = KAPI.ksTextLineParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextLineParam))
+iTextLineParam.Init()
+iTextLineParam.style = 1
+
+iTextItemArray = KAPI.ksDynamicArray(iKompasObject.GetDynamicArray(4))
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = "0"
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 4096
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 176
+iTextItemParam.s = ""
+iTextItemParam.type = 23
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 8215
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "Gost Type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = ""
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 0
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = ""
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 0
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextLineParam.SetTextItemArr(iTextItemArray)
+iDocument2D.ksTextLine(iTextLineParam)
+
+iDocument2D.ksEndObj()
+
+iParagraphParam = KAPI.ksParagraphParam(iKompasObject.GetParamStruct(LDefin2D.ko_ParagraphParam))
+iParagraphParam.Init()
+iParagraphParam.x = -51
+iParagraphParam.y = 3
+iParagraphParam.ang = 0.0
+iParagraphParam.height = 7.13581323623
+iParagraphParam.width = 13.32937431335
+iParagraphParam.hFormat = 0
+iParagraphParam.vFormat = 0
+iParagraphParam.style = 1
+
+iDocument2D.ksParagraph(iParagraphParam)
+
+iTextLineParam = KAPI.ksTextLineParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextLineParam))
+iTextLineParam.Init()
+iTextLineParam.style = 1
+
+iTextItemArray = KAPI.ksDynamicArray(iKompasObject.GetDynamicArray(4))
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = "270"
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 4096
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 176
+iTextItemParam.s = ""
+iTextItemParam.type = 23
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 8215
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "Gost Type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = ""
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 0
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = ""
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 0
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextLineParam.SetTextItemArr(iTextItemArray)
+iDocument2D.ksTextLine(iTextLineParam)
+
+iDocument2D.ksEndObj()
+
+iParagraphParam = KAPI.ksParagraphParam(iKompasObject.GetParamStruct(LDefin2D.ko_ParagraphParam))
+iParagraphParam.Init()
+iParagraphParam.x = -15
+iParagraphParam.y = -43
+iParagraphParam.ang = 0.0
+iParagraphParam.height = 7.13581323623
+iParagraphParam.width = 12.27104091644
+iParagraphParam.hFormat = 0
+iParagraphParam.vFormat = 0
+iParagraphParam.style = 1
+
+iDocument2D.ksParagraph(iParagraphParam)
+
+iTextLineParam = KAPI.ksTextLineParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextLineParam))
+iTextLineParam.Init()
+iTextLineParam.style = 1
+
+iTextItemArray = KAPI.ksDynamicArray(iKompasObject.GetDynamicArray(4))
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = "180"
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 4096
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 176
+iTextItemParam.s = ""
+iTextItemParam.type = 23
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 8215
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "Gost Type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = ""
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 0
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextItemParam = KAPI.ksTextItemParam(iKompasObject.GetParamStruct(LDefin2D.ko_TextItemParam))
+iTextItemParam.Init()
+iTextItemParam.iSNumb = 0
+iTextItemParam.s = ""
+iTextItemParam.type = 0
+
+iTextItemFontParam = KAPI.ksTextItemFont(iTextItemParam.GetItemFont())
+iTextItemFontParam.Init()
+iTextItemFontParam.bitVector = 0
+iTextItemFontParam.color = 0
+iTextItemFontParam.fontName = "GOST type A"
+iTextItemFontParam.height = 5.0
+iTextItemFontParam.ksu = 1.0
+
+iTextItemArray.ksAddArrayItem(-1, iTextItemParam)
+
+iTextLineParam.SetTextItemArr(iTextItemArray)
+iDocument2D.ksTextLine(iTextLineParam)
+
+iDocument2D.ksEndObj()
