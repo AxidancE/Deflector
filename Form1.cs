@@ -1,10 +1,10 @@
-﻿using AutoUpdaterDotNET;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using AutoUpdaterDotNET;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ProjectZ
@@ -13,14 +13,11 @@ namespace ProjectZ
     {
         public Form1()
         {
-
-
-            AutoUpdater.Synchronous = true;
-            AutoUpdater.Start("https://raw.githubusercontent.com/AxidancE/Deflector/main/Version.xml");
-
             InitializeComponent();
             tabControl1.SelectTab(tabPage1);
-            KeyPreview = true; //Переменная перехватывает нажатие клавиш, что позволяет использовать "горчие" клавиши.
+            KeyPreview = true; //Переменная перехватывает нажатие клавиш, что позволяет использовать "горячие" клавиши.
+            AutoUpdater.Synchronous = true;
+            AutoUpdater.Start("https://raw.githubusercontent.com/AxidancE/Deflector/main/Version.xml");
         }
 
         public static string path = Application.StartupPath.ToString() + @"\Resources\textes";
@@ -113,7 +110,7 @@ namespace ProjectZ
 
             try
             {
-                Console.WriteLine("1");
+                //Console.WriteLine("1");
                 double range_def_do_inTry = Convert.ToDouble(range_def.Value2);
                 double width_range_do_inTry = Convert.ToDouble(width_range.Value2);
                 double height_range_do_inTry = Convert.ToDouble(height_range.Value2);
@@ -176,6 +173,9 @@ namespace ProjectZ
             a = Convert.ToDouble(dataGridView1[2, 0].Value.ToString()); // Длина окруж
             b = Convert.ToDouble(dataGridView1[3, 0].Value.ToString()); // Угол начала
             c = Convert.ToDouble(dataGridView1[4, 0].Value.ToString()); // Угол конца
+
+            //Console.WriteLine("Отладка: Х - " + x);
+
 
             original_width = dataGridView1[1, 0].Value.ToString();
             original_height = dataGridView1[2, 0].Value.ToString();
@@ -245,7 +245,11 @@ namespace ProjectZ
             out_height = -(Math.Abs(b_deg - c_deg) / 180 * height);
             out_height = Math.Round(out_height, 2);
 
-            double const_rad = 38;
+            double const_rad = 37;
+            if(radioButton4.Checked != true)
+            {
+                const_rad++;
+            }
 
             //Переменные для полочки продольной
             Sh_x1 = pre_width;
@@ -305,11 +309,12 @@ namespace ProjectZ
             if (radioButton4.Checked == true)
             {
                 y1_cos_def -= 130;
+                x1_sin_def += pre_width;
             }
 
             //--- Математика для отвода ---//
-            one_deg = width_scheme / 90.0;
-            x_deg = x / one_deg;
+            one_deg = width_scheme / 90.0; //207 = 2.3
+            x_deg = x / one_deg; //100 = 43.47
             y_deg = (x + y) / one_deg;
             //x - "Длина до дефекта"
             //y - "длина дефекта"
@@ -317,9 +322,12 @@ namespace ProjectZ
             // Высоту делить на полную развертку и умножать на полученную верхнюю/нижнюю точку дефекта
             r_radius = 140.0 - 70.0 / 180.0 * b_deg;
             r_radius_second = 140.0 - 70.0 / 180.0 * c_deg;
+            
 
+            //Возможно это отрезки для отвода
             Overload_Sin_Cos(out double x1_cos_elbow, out double y1_sin_elbow, r_radius, x_deg, const_deg);
             Overload_Sin_Cos(out double x2_cos_elbow, out double y2_sin_elbow, r_radius, y_deg, const_deg);
+
 
             Overload_Sin_Cos(out double x1_cos_elbow_second, out double y1_sin_elbow_second, r_radius_second, x_deg, const_deg);
             Overload_Sin_Cos(out double x2_cos_elbow_second, out double y2_sin_elbow_second, r_radius_second, y_deg, const_deg);
@@ -340,6 +348,8 @@ namespace ProjectZ
                 //Создание дуги дефекта на окружности в разрезе
                 Overload_Sin_Cos(out double x1_Sliced_cos, out double y1_Sliced_sin, const_rad, c, 90);
                 Overload_Sin_Cos(out double x2_Sliced_cos, out double y2_Sliced_sin, const_rad, b, 90);
+                //Console.WriteLine($"1.\n{Math.Round(x1_Sliced_cos,2)} - x1\n{Math.Round(y1_Sliced_sin, 2)} - y1; C - {c}\n");
+                //Console.WriteLine($"2.\n{Math.Round(x2_Sliced_cos,2)} - x2\n{Math.Round(y2_Sliced_sin, 2)} - y2; B - {b}");
 
                 double Pipe_type = 0;
 
@@ -350,16 +360,7 @@ namespace ProjectZ
                     y2_Sliced_sin -= 130;
                 }
 
-                //Создание дуги дефекта на разразрезе
-                TextToChange = TextToChange.Replace("ksArcByPoint(0.0, -130.0, 38.0, 0, 0, 0, 0, 1, 7)", //x, y, r, x1, y1, x2, y2 [?, ?]
-            "ksArcByPoint(" +
-            "0.0, " +
-            Pipe_type + ", " +
-            const_rad + ", " +
-            x1_Sliced_cos + ", " +
-            y1_Sliced_sin + ", " +
-            x2_Sliced_cos + ", " +
-            y2_Sliced_sin + ", 1, 7)");
+                
 
                 //Создание дефекта на прямой трубе
                 if (sw_case == 5)
@@ -368,10 +369,36 @@ namespace ProjectZ
                     TextToChange = TextToChange.Replace("iObjParam.y = 0.0", "iObjParam.y = " + pre_height);
                     TextToChange = TextToChange.Replace("iObjParam.height = 0.0", "iObjParam.height = " + out_height);
                     TextToChange = TextToChange.Replace("iObjParam.width = 0.0", "iObjParam.width = " + out_width);
+                    
+                    
+                    TextToChange = TextToChange.Replace("ksArcByPoint(0.0, -130.0, 37.0, 0, 0, 0, 0, 1, 7)", //x, y, r, x1, y1, x2, y2 [?, ?]
+                "ksArcByPoint(" +
+                $"{pre_width}, " +
+                Pipe_type + ", " +
+                const_rad + ", " +
+                (x1_Sliced_cos + pre_width) + ", " +
+                y1_Sliced_sin + ", " +
+                (x2_Sliced_cos + pre_width) + ", " +
+                y2_Sliced_sin + ", 1, 7)");
                 }
+                
+                
+
+
                 //Создание дефекта на отводе
                 else if (sw_case == 6)
                 {
+                    //Создание дуги дефекта на разрезе
+                    TextToChange = TextToChange.Replace("ksArcByPoint(0.0, 0.0, 38.0, 0, 0, 0, 0, 1, 7)", //x, y, r, x1, y1, x2, y2 [?, ?]
+                "ksArcByPoint(" +
+                "0.0, " +
+                Pipe_type + ", " +
+                const_rad + ", " +
+                x1_Sliced_cos + ", " +
+                y1_Sliced_sin + ", " +
+                x2_Sliced_cos + ", " +
+                y2_Sliced_sin + ", 1, 7)");
+
                     TextToChange = TextToChange.Replace("x1", //x, y, r, x1, y1, x2, y2 [1 - против часовой | -1 по часовой, 7 - вид линии]
                 "iDocument2D.ksArcByPoint(" + 0.0 + ", 0.0, " +
                 r_radius + ", " +
@@ -449,7 +476,20 @@ namespace ProjectZ
                     TextToChange = TextToChange.Replace("iLDimSourceParam.y2 = " + Sh_y1, "iLDimSourceParam.y2 = " + y1_sin_elbow_second);
                     TextToChange = TextToChange.Replace("iLDimSourceParam.x2 = " + Sh_x1, "iLDimSourceParam.x2 = " + x1_cos_elbow_second);
                 }
-
+                if (sw_case == 11)
+                {
+                    TextToChange = TextToChange.Replace("Change_me", Convert.ToString(pre_width));
+                    TextToChange = TextToChange.Replace("Y_ch_1", Convert.ToString(pre_height));
+                    if(pre_width < 102.5)
+                    {
+                        TextToChange = TextToChange.Replace("Directioned", "100");
+                    }
+                    else
+                    {
+                        TextToChange = TextToChange.Replace("Directioned", "(-180)");
+                    }
+                    //Console.WriteLine("X = " + pre_width.ToString());
+                }
                 TextToChange = TextToChange.Replace("iChar255.str = \"1.0\"", "iChar255.str = \"" + TextToString + "\" ");
                 //MessageBox.Show(TextToChange);
 
@@ -466,8 +506,9 @@ namespace ProjectZ
             //Создание дефекта для отвода или прямой трубы
             if (radioButton4.Checked == true) //Прямая
             {
+                
                 ChangeText("Orig_defect", 5, "Error.");
-                if (y != 0 && Convert.ToDouble(original_width) != width_scheme)
+                if (Convert.ToInt32(original_width) != 0 && Convert.ToDouble(original_width) != width_scheme)
                 {
                     ChangeText("prodol", 1, original_width);
                 }
@@ -477,12 +518,13 @@ namespace ProjectZ
                 {
                     ChangeText("okruj", 2, original_height);
                 }
-
-                // Параметры для выноски до дефекта
+                Console.WriteLine(x);
                 if (x != 0)
                 {
                     ChangeText("do_def", 3, x.ToString());
                 }
+                ChangeText("Sliced_pipe", 11, x.ToString());
+                
             }
             else if (radioButton4.Checked != true)
             {
@@ -507,12 +549,13 @@ namespace ProjectZ
                 {
                     ChangeText("dl_def_elb", 8, original_width);
                 }
+
             }
 
             // Параметры для продольной выноски
 
-            ChangeText("slice", 4, x.ToString());
 
+            
             //x1 - полочка | х2 - линия-выноска
 
             string defecto = File.ReadAllText(path + @"\defecto.txt", System.Text.Encoding.GetEncoding(1251));
@@ -527,6 +570,9 @@ namespace ProjectZ
 
                 if (pos == 1)
                 {
+                    
+                    Console.WriteLine(x1_sin_def);
+                    Console.WriteLine(y1_cos_def);
                     //Привязки линии-выноски
                     deflex = deflex.Replace("x = -111", "x = " + x1_sin_def);
                     deflex = deflex.Replace("y = -130", "y = " + y1_cos_def);//iMathPointParam
@@ -597,7 +643,7 @@ namespace ProjectZ
             c_deg = 180;
             int i = 2, j = 4;
 
-            Console.WriteLine("0.0) " + b + "; " + c);
+            //Console.WriteLine("0.0) " + b + "; " + c);
 
             if (b == c && b != 0)
                 while (i < j && b != 0)
@@ -723,7 +769,7 @@ namespace ProjectZ
                 b_deg = 0;
                 c_deg = 180;
             }
-            Console.WriteLine("0.1) " + b + "; " + c);
+            //Console.WriteLine("0.1) " + b + "; " + c);
         }
 
         public void Overload_Sin_Cos(out double x_cos, out double y_sin, double rad, double n_deg, double const_deg)
