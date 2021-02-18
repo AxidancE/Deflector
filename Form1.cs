@@ -1,10 +1,10 @@
-﻿using System;
+﻿using AutoUpdaterDotNET;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using AutoUpdaterDotNET;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ProjectZ
@@ -52,12 +52,12 @@ namespace ProjectZ
             height = Convert.ToDouble(textBox5.Text); //Высота трубы на чертеже
             const_width = 2;
 
-            double width_scheme, out_width, pre_width, out_height, pre_height; ; 
-            //Переменная для длины трубы по формам (11м прим.)            
-                                //Длина дефекта
-                                            //Длина до дефекта
-                                                    //Высота дефекта
-                                                                //Высота до дефекта
+            double width_scheme, out_width, pre_width, out_height, pre_height; ;
+            //Переменная для длины трубы по формам (11м прим.)
+            //Длина дефекта
+            //Длина до дефекта
+            //Высота дефекта
+            //Высота до дефекта
 
             double r_radius, r_radius_second;
             double x_deg, y_deg, one_deg;
@@ -97,7 +97,7 @@ namespace ProjectZ
                 return;
             }
 
-        //as Excel.Range
+            //as Excel.Range
             Excel.Range currentFind = xlRange_01.Find(defect); //Поиск по клетке
             Excel.Range range_def = xlSheet_01.Cells[currentFind.Row, 5];
             Excel.Range width_range = xlSheet_01.Cells[currentFind.Row, 8];
@@ -132,7 +132,6 @@ namespace ProjectZ
                 numericUpDown1.Value++;
                 return;
             }
-            
 
             double range_def_do = Convert.ToDouble(range_def.Value2);
             double width_range_do = Convert.ToDouble(width_range.Value2);
@@ -175,7 +174,6 @@ namespace ProjectZ
             c = Convert.ToDouble(dataGridView1[4, 0].Value.ToString()); // Угол конца
 
             //Console.WriteLine("Отладка: Х - " + x);
-
 
             original_width = dataGridView1[1, 0].Value.ToString();
             original_height = dataGridView1[2, 0].Value.ToString();
@@ -246,7 +244,7 @@ namespace ProjectZ
             out_height = Math.Round(out_height, 2);
 
             double const_rad = 37;
-            if(radioButton4.Checked != true)
+            if (radioButton4.Checked != true)
             {
                 const_rad++;
             }
@@ -322,12 +320,10 @@ namespace ProjectZ
             // Высоту делить на полную развертку и умножать на полученную верхнюю/нижнюю точку дефекта
             r_radius = 140.0 - 70.0 / 180.0 * b_deg;
             r_radius_second = 140.0 - 70.0 / 180.0 * c_deg;
-            
 
             //Возможно это отрезки для отвода
             Overload_Sin_Cos(out double x1_cos_elbow, out double y1_sin_elbow, r_radius, x_deg, const_deg);
             Overload_Sin_Cos(out double x2_cos_elbow, out double y2_sin_elbow, r_radius, y_deg, const_deg);
-
 
             Overload_Sin_Cos(out double x1_cos_elbow_second, out double y1_sin_elbow_second, r_radius_second, x_deg, const_deg);
             Overload_Sin_Cos(out double x2_cos_elbow_second, out double y2_sin_elbow_second, r_radius_second, y_deg, const_deg);
@@ -360,8 +356,6 @@ namespace ProjectZ
                     y2_Sliced_sin -= 130;
                 }
 
-                
-
                 //Создание дефекта на прямой трубе
                 if (sw_case == 5)
                 {
@@ -369,8 +363,7 @@ namespace ProjectZ
                     TextToChange = TextToChange.Replace("iObjParam.y = 0.0", "iObjParam.y = " + pre_height);
                     TextToChange = TextToChange.Replace("iObjParam.height = 0.0", "iObjParam.height = " + out_height);
                     TextToChange = TextToChange.Replace("iObjParam.width = 0.0", "iObjParam.width = " + out_width);
-                    
-                    
+
                     TextToChange = TextToChange.Replace("ksArcByPoint(0.0, -130.0, 37.0, 0, 0, 0, 0, 1, 7)", //x, y, r, x1, y1, x2, y2 [?, ?]
                 "ksArcByPoint(" +
                 $"{pre_width}, " +
@@ -381,9 +374,6 @@ namespace ProjectZ
                 (x2_Sliced_cos + pre_width) + ", " +
                 y2_Sliced_sin + ", 1, 7)");
                 }
-                
-                
-
 
                 //Создание дефекта на отводе
                 else if (sw_case == 6)
@@ -445,7 +435,7 @@ namespace ProjectZ
                 if (sw_case == 8)
                 {
                     TextToChange = TextToChange.Replace("x1 = 70.0", "x1   = " + Sh_x1); //x1 - правая
-                    TextToChange = TextToChange.Replace("y1 = 0.0", "y1   = " + Sh_y1); 
+                    TextToChange = TextToChange.Replace("y1 = 0.0", "y1   = " + Sh_y1);
                     TextToChange = TextToChange.Replace("x2 = 0.0", "x2   = " + Sh_x2); //x2 - левая точка
                     TextToChange = TextToChange.Replace("y2 = 70.0", "y2   = " + Sh_y2);
                     TextToChange = TextToChange.Replace("ang1 = 0.0", "ang1 = " + (90 - x_deg));
@@ -480,7 +470,7 @@ namespace ProjectZ
                 {
                     TextToChange = TextToChange.Replace("Change_me", Convert.ToString(pre_width));
                     TextToChange = TextToChange.Replace("Y_ch_1", Convert.ToString(pre_height));
-                    if(pre_width < 102.5)
+                    if (pre_width < 102.5)
                     {
                         TextToChange = TextToChange.Replace("Directioned", "100");
                     }
@@ -506,7 +496,6 @@ namespace ProjectZ
             //Создание дефекта для отвода или прямой трубы
             if (radioButton4.Checked == true) //Прямая
             {
-                
                 ChangeText("Orig_defect", 5, "Error.");
                 if (Convert.ToInt32(original_width) != 0 && Convert.ToDouble(original_width) != width_scheme)
                 {
@@ -524,7 +513,6 @@ namespace ProjectZ
                     ChangeText("do_def", 3, x.ToString());
                 }
                 ChangeText("Sliced_pipe", 11, x.ToString());
-                
             }
             else if (radioButton4.Checked != true)
             {
@@ -549,13 +537,10 @@ namespace ProjectZ
                 {
                     ChangeText("dl_def_elb", 8, original_width);
                 }
-
             }
 
             // Параметры для продольной выноски
 
-
-            
             //x1 - полочка | х2 - линия-выноска
 
             string defecto = File.ReadAllText(path + @"\defecto.txt", System.Text.Encoding.GetEncoding(1251));
@@ -570,7 +555,6 @@ namespace ProjectZ
 
                 if (pos == 1)
                 {
-                    
                     Console.WriteLine(x1_sin_def);
                     Console.WriteLine(y1_cos_def);
                     //Привязки линии-выноски
@@ -626,7 +610,6 @@ namespace ProjectZ
                 }
                 text = text.Replace("#" + TextToChange, deflex);
                 return text;
-
             }
 
             do_def_func(defecto, "defecto", 1);
@@ -780,6 +763,7 @@ namespace ProjectZ
 
         public void Second_Prog()
         {
+            //Функция создания продольных сварных швов
             int sect;
             sect = Convert.ToInt32(numericUpDown2.Value);
 
@@ -821,7 +805,7 @@ namespace ProjectZ
             textBox2.Text = Diameter_do.ToString();
             textBox6.Text = Thickness_do.ToString();
 
-            double A_1, A_1_Orig, A_2_Orig, height_pipe, pipe_width, y, y_2; //A1 - Число для конвертации y1,2
+            double A_1, A_1_Orig, A_2_Orig, height_pipe, pipe_width, y, y_2; //A1 - Число для конвертации y1,2            
             height_pipe = Convert.ToDouble(textBox5.Text);
             pipe_width = Convert.ToDouble(textBox3.Text);
             //dataGridView1[0, 0].Value = range_def_do.ToString(); //Расстояние от начала
@@ -859,77 +843,205 @@ namespace ProjectZ
                 Pp_sh_r = File.ReadAllText(path + @"\Welds\Pp_sh_elbow_r.txt", System.Text.Encoding.GetEncoding(1251)); //Кольцевой шов (правый);
                 W_pp = File.ReadAllText(path + @"\W_elbow_pp.txt", System.Text.Encoding.GetEncoding(1251)); //Высота трубы
             }
-
-            if (caseSwitch == 1)
+            if(caseSwitch != 3)
             {
-                int visible_def = 1;
-                //Прога рисует 1 продольный св шов в диапазоне 0-360
+            if (radioButton4.Checked == true)
+            {
 
                 string F_sh = File.ReadAllText(path + @"\F_sh.txt", System.Text.Encoding.GetEncoding(1251));
+                string S_sh = File.ReadAllText(path + @"\S_sh.txt", System.Text.Encoding.GetEncoding(1251));
+                
+                int visible_def = 1;
                 A_1 = Convert.ToDouble(textBox4.Text); // Градусы
+                double A_2 = A_1 + 180;
                 A_1_Orig = A_1;
+
+                y = -(A_1 / 180 * height_pipe);
+                y = Math.Round(y, 2);
+
+
                 if (A_1 > 180)
                 {
                     A_1 = 360 - A_1;
                     visible_def = 9;
                 }
-                y = -(A_1 / 180 * height_pipe);
-                y = Math.Round(y, 2);
+                if (caseSwitch == 1)
+                {
+                    //Прога рисует 1 продольный св шов в диапазоне 0-360
+                    F_sh = F_sh.Replace("(0.0, -35.0, 205.0, -35.0, 9)",
+                        "( 0.0, " + y + ", " + pipe_width + ", " + y + ", " + visible_def + ")");
+                    F_sh = F_sh.Replace("iTextItemParam.s = \"10/242\"",
+                        "iTextItemParam.s = \"" + numericUpDown2.Value + "/" + A_1_Orig + "\"");
 
-                F_sh = F_sh.Replace("(0.0, -35.0, 205.0, -35.0, 9)",
-                    "( 0.0, " + y + ", " + pipe_width + ", " + y + ", " + visible_def + ")");
-                F_sh = F_sh.Replace("iTextItemParam.s = \"10/242\"",
-                    "iTextItemParam.s = \"" + numericUpDown2.Value + "/" + A_1_Orig + "\"");
+                    //iParagraphParam.x = 175.0
 
-                //iParagraphParam.x = 175.0
+                    F_sh = F_sh.Replace(".y = 0.0",
+                        ".y = " + (y + 4));
+                    F_sh = F_sh.Replace("iParagraphParam.x = 175.0",
+                        "iParagraphParam.x = " + (pipe_width - 27));
 
-                F_sh = F_sh.Replace(".y = 0.0",
-                    ".y = " + (y + 4));
-                F_sh = F_sh.Replace("iParagraphParam.x = 175.0",
-                    "iParagraphParam.x = " + (pipe_width - 27));
+                    pipe = pipe.Replace("#F_sh", F_sh);
+                }
+                else if (caseSwitch == 2)
+                {
+                    //Прога рисует 2 продольных св швв в диапазоне 0-180 и 180-360 соответственно
+                    
 
-                pipe = pipe.Replace("#F_sh", F_sh);
-            }
-            else if (caseSwitch == 2)
+                    A_2 = 180 - A_1;
+                    A_2_Orig = 360 - A_2;
+
+                    y_2 = -(A_2 / 180 * height_pipe);
+                    y_2 = Math.Round(y_2, 2);
+
+                    F_sh = F_sh.Replace("(0.0, -35.0, 205.0, -35.0, 9)",
+                        "( 0.0, " + y + ", " + pipe_width + ", " + y + ", 1)");
+                    F_sh = F_sh.Replace("iTextItemParam.s = \"10/242\"",
+                        "iTextItemParam.s = \"" + numericUpDown2.Value + "/" + A_1_Orig + "\"");
+                    F_sh = F_sh.Replace(".y = 0.0",
+                        ".y = " + (y - 8));
+                    F_sh = F_sh.Replace("iParagraphParam.x = 175.0",
+                        "iParagraphParam.x = " + (pipe_width - 27));
+
+                    S_sh = S_sh.Replace("(0.0, -35.0, 205.0, -35.0, 9)",
+                        "( 0.0, " + y_2 + ", " + pipe_width + ", " + y_2 + ", 9)");
+                    S_sh = S_sh.Replace("iTextItemParam.s = \"10/242\"",
+                        "iTextItemParam.s = \"" + numericUpDown2.Value + "/" + A_2_Orig + "\"");
+                    S_sh = S_sh.Replace(".y = 0.0",
+                        ".y = " + (y_2 + 4));
+                    S_sh = S_sh.Replace("iParagraphParam.x = 175.0",
+                        "iParagraphParam.x = " + (pipe_width - 27));
+
+                    pipe = pipe.Replace("#F_sh", F_sh);
+                    pipe = pipe.Replace("#S_sh", S_sh);
+                }
+            }            
+            else if (radioButton6.Checked == true || radioButton5.Checked == true)
             {
-                //Прога рисует 2 продольных св швв в диапазоне 0-180 и 180-360 соответственно
-                double A_2;
 
-                string F_sh = File.ReadAllText(path + @"\F_sh.txt", System.Text.Encoding.GetEncoding(1251));
-                string S_sh = File.ReadAllText(path + @"\S_sh.txt", System.Text.Encoding.GetEncoding(1251));
+                string F_sh = File.ReadAllText(path + @"\B_sh_elb.txt", System.Text.Encoding.GetEncoding(1251));
+                string S_sh = File.ReadAllText(path + @"\B_sh_elb.txt", System.Text.Encoding.GetEncoding(1251));
+                
+                int visible_def = 1;
+                int visible_def_second;                
                 A_1 = Convert.ToDouble(textBox4.Text); // Градусы
+                double A_2 = A_1 + 180;
                 A_1_Orig = A_1;
-                A_2 = 180 - A_1;
-                A_2_Orig = 360 - A_2;
+                A_2_Orig = A_1 + 180;
 
-                y = -(A_1 / 180 * height_pipe);
-                y = Math.Round(y, 2);
+                if (radioButton6.Checked == true)
+                {
 
-                y_2 = -(A_2 / 180 * height_pipe);
-                y_2 = Math.Round(y_2, 2);
 
-                F_sh = F_sh.Replace("(0.0, -35.0, 205.0, -35.0, 9)",
-                    "( 0.0, " + y + ", " + pipe_width + ", " + y + ", 1)");
-                F_sh = F_sh.Replace("iTextItemParam.s = \"10/242\"",
-                    "iTextItemParam.s = \"" + numericUpDown2.Value + "/" + A_1_Orig + "\"");
-                F_sh = F_sh.Replace(".y = 0.0",
-                    ".y = " + (y - 8));
-                F_sh = F_sh.Replace("iParagraphParam.x = 175.0",
-                    "iParagraphParam.x = " + (pipe_width - 27));
+                    if (A_1 > 180)
+                    {
+                        A_1 = 360 - A_1;
+                        visible_def = 9;
+                    }
+                    y = 140 - (A_1 / 180 * height_pipe) / 2;
 
-                S_sh = S_sh.Replace("(0.0, -35.0, 205.0, -35.0, 9)",
-                    "( 0.0, " + y_2 + ", " + pipe_width + ", " + y_2 + ", 9)");
-                S_sh = S_sh.Replace("iTextItemParam.s = \"10/242\"",
-                    "iTextItemParam.s = \"" + numericUpDown2.Value + "/" + A_2_Orig + "\"");
-                S_sh = S_sh.Replace(".y = 0.0",
-                    ".y = " + (y_2 + 4));
-                S_sh = S_sh.Replace("iParagraphParam.x = 175.0",
-                    "iParagraphParam.x = " + (pipe_width - 27));
+                    y = Math.Round(y, 2);
+                    Math.Abs(y);
 
-                pipe = pipe.Replace("#F_sh", F_sh);
-                pipe = pipe.Replace("#S_sh", S_sh);
+                    y_2 = 140 - ((180 - A_1) / 180 * height_pipe) / 2;
+
+                    if (visible_def == 1) visible_def_second = 9;
+                    else visible_def_second = 1;
+                }
+                else
+                {
+                    //1 гр = 0,38(8)
+                    if (A_1 > 90 && A_1 <= 270)
+                    {
+                        A_1 = 180 - A_1;
+                        visible_def = 9;
+                    }
+                    Console.WriteLine(A_1);
+                    y = 140 * 0.75 - (A_1 / 180 * height_pipe) / 2;
+                    Console.WriteLine(y);
+                    if (A_1 > 90 && A_1 < 180) y += 35;
+                    if (A_1 >= 180 && A_1 <= 270) y += 70;
+                    if (A_1 > 270) y += 140;
+                    
+                    
+                    Console.WriteLine(y+"\n");
+
+
+                    if (caseSwitch == 2)
+                    {
+
+                        if (A_2 > 90 && A_2 <= 270)
+                        {
+                            A_2 = 180 - A_2;
+                        }
+                        y_2 = 140 * 0.75 - (A_2 / 180 * height_pipe) / 2;
+                        if (A_2 >= 180 && A_2 <= 270) y_2 += 70;
+                        if (A_2 > 270) y_2 += 140;
+                    }
+                    else
+                    {
+                        y_2 = 0;
+                    }
+
+                    y = Math.Round(y, 2);
+                    Math.Abs(y);
+                    
+                    y_2 = Math.Round(y_2, 2);
+                    Math.Abs(y_2);
+
+                    if (visible_def == 1) visible_def_second = 9;
+                    else visible_def_second = 1;
+                }
+
+                
+                if (caseSwitch == 1)
+                {
+                    F_sh = F_sh.Replace("#F_sh", $"iDocument2D.ksArcByPoint(0.0, 0.0, {y}, {y}, {0.0}, {0.0}, {y}, 1, {visible_def})");//R, x1, y1, x2, y2
+                    F_sh = F_sh.Replace("#a ", "");
+                    F_sh = F_sh.Replace("76.32", $"{y-11}");
+                    
+                    F_sh = F_sh.Replace("40/225", $"{numericUpDown2.Value}/{A_1_Orig}");
+                    pipe = pipe.Replace("#F_sh", F_sh);
+                }
+                else if(caseSwitch == 2)
+                {
+                    F_sh = F_sh.Replace("#F_sh", $"iDocument2D.ksArcByPoint(0.0, 0.0, {y}, {y}, {0.0}, {0.0}, {y}, 1, {visible_def})");//R, x1, y1, x2, y2
+                    F_sh = F_sh.Replace("#S_sh", $"iDocument2D.ksArcByPoint(0.0, 0.0, {y_2}, {y_2}, {0.0}, {0.0}, {y_2}, 1, {visible_def_second})");//R, x1, y1, x2, y2
+
+                    F_sh = F_sh.Replace("#a ", "");
+                    S_sh = S_sh.Replace("#b ", "");
+
+                    if (radioButton6.Checked == true)
+                    {
+                        if (A_1 <= 90)
+                        {
+                            F_sh = F_sh.Replace("40/225", $"{numericUpDown2.Value}/{A_2_Orig}");
+                            S_sh = S_sh.Replace("60/335", $"{numericUpDown2.Value}/{A_1_Orig}");
+                        }
+                        else
+                        {
+                            F_sh = F_sh.Replace("40/225", $"{numericUpDown2.Value}/{A_1_Orig}");
+                            S_sh = S_sh.Replace("60/335", $"{numericUpDown2.Value}/{A_2_Orig}");
+                        }
+                    }
+                    else
+                    {
+                        if (A_1 <= 180)
+                        {
+                            F_sh = F_sh.Replace("40/225", $"{numericUpDown2.Value}/{A_1_Orig}");
+                            S_sh = S_sh.Replace("60/335", $"{numericUpDown2.Value}/{A_2_Orig}");
+                        }
+                        else
+                        {
+                            F_sh = F_sh.Replace("40/225", $"{numericUpDown2.Value}/{A_2_Orig}");
+                            S_sh = S_sh.Replace("60/335", $"{numericUpDown2.Value}/{A_1_Orig}");
+                        }
+                    }
+                    
+                    pipe = pipe.Replace("#F_sh", F_sh);
+                    pipe = pipe.Replace("#S_sh", S_sh);
+                }
             }
-
+            }
             int curr_incr_num = 10;
 
             numericUpDown3.Increment = curr_incr_num;
@@ -1108,6 +1220,7 @@ namespace ProjectZ
             label13.Text = "Excel подключен";
             label13.ForeColor = System.Drawing.Color.Green;
         }
+
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             button6.Enabled = false;
@@ -1159,6 +1272,6 @@ namespace ProjectZ
             }
             //txt.Start();
         }
-
     }
 }
+

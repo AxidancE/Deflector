@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <item>
-    <version>1.8.0.0</version>
-    <url>https://github.com/AxidancE/Deflector/releases/download/v1.8.0/Deflector.zip</url>
+    <version>1.8.1.0</version>
+    <url>https://github.com/AxidancE/Deflector/releases/download/v1.8.1/Deflector.zip</url>
     <changelog>https://github.com/AxidancE/Deflector/releases</changelog>
     <mandatory>false</mandatory>
 </item>
